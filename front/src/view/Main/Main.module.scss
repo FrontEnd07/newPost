@@ -1,0 +1,24 @@
+.main {
+    >div {
+        >ul {
+            >li {
+                >.show {
+                    height: auto;
+                }
+
+                >.collapsing {
+                    height: 0;
+                }
+
+                >ul {
+                    overflow: hidden;
+                    -moz-transition: height .35s ease;
+                    -ms-transition: height .35s ease;
+                    -o-transition: height .35s ease;
+                    -webkit-transition: height .35s ease;
+                    transition: height .35s ease;
+                }
+            }
+        }
+    }
+}

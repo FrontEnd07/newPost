@@ -1,15 +1,29 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import "./fonts/stylesheet.css"
+import { store } from "./store";
+import { Provider } from "react-redux";
+import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from 'react-query'
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
+
+const queryClient = new QueryClient()
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <BrowserRouter>
+      <Provider store={store}>
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
+      </Provider>
+    </BrowserRouter>
+  </React.StrictMode>,
 );
 
 // If you want your app to work offline and load faster, you can change
