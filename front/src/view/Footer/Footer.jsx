@@ -7,10 +7,10 @@ const Footer = () => {
         <div className='container-fluid'>
             <div className='row'>
                 <div className='text-center text-md-start fw-bold col-md-6'>
-                    <p class="mb-2 mb-md-0">Новая почта © {today.getFullYear()}</p>
+                    <p className="mb-2 mb-md-0">Новая почта © {today.getFullYear()}</p>
                 </div>
                 <div className='text-center text-md-end text-gray-400 col-md-6'>
-                    <p class="mb-0">Version 1.3.0</p>
+                    <p className="mb-0">Version 1.3.0</p>
                 </div>
             </div>
         </div>

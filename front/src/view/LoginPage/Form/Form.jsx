@@ -13,16 +13,10 @@ const auth = yup.object().shape({
 const regSchema = yup.object().shape({
     name: yup.string().trim().required("Обязательно"),
     pass: yup.string().trim().required("Обязательно"),
-    phone: yup.string().transform((value) => value
-        .replace(/\+992/g, '')
-        .replace(/\s.*?/g, '')
-        .replace(/\(/g, '')
-        .replace(/\)/g, '')
-        .replace(/-/g, '')
-        .replace(/_/g, ''))
-    .min(9, 'Не менее 9 символов').required("Обязательно"),
+    phone: yup.string().transform((value) => value.replace(/\+992|\s|\(|\)|-|_/g, ''))
+        .min(9, 'Не менее 9 символов').required("Обязательно"),
     city: yup.string().trim().required("Обязательно"),
-        conditions: yup.boolean().oneOf([true])
+    conditions: yup.boolean().oneOf([true])
 });
 
 const Form = ({ type }) => {
