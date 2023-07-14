@@ -14,7 +14,7 @@ export const Radio = forwardRef((props, ref) => {
                 defaultChecked={el.checked && el.checked}
                 className={`form-check-input ${errors[rest.name] ? "is-invalid" : ""}`}
                 {...register(rest.name)} />
-            <label title={el.label} for={i} className="form-check-label">{el.label}</label>
+            <label title={el.label} htmlFor={i} className="form-check-label">{el.label}</label>
         </div>)}
     </>
 })
