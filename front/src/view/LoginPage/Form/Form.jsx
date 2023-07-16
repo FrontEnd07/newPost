@@ -1,7 +1,9 @@
 import React from 'react';
 import * as yup from "yup";
+import { useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { postSignUpApi, postSignInApi } from '../../../http/LoginPage/LoginPage';
 import { LField, Check, LFieldMask } from "../../../components/index";
 
 const auth = yup.object().shape({
@@ -20,6 +22,7 @@ const regSchema = yup.object().shape({
 });
 
 const Form = ({ type }) => {
+    const dispatch = useDispatch();
 
     const {
         register,
@@ -31,7 +34,18 @@ const Form = ({ type }) => {
     });
 
     const handlerSubmit = (client) => {
-        console.log(client)
+        let payload = {
+            "name": client.name,
+            "password": client.pass,
+        }
+
+        if (type) {
+            payload.phone = client.phone
+            payload.city = client.city
+            dispatch(postSignUpApi(payload))
+        } else {
+            dispatch(postSignInApi(payload))
+        }
     }
 
     return <form id="loginForm" action="/" className="">

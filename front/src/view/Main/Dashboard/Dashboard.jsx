@@ -60,7 +60,7 @@ const Dashboard = () => {
     ]
     return <Containers header={"Главное"}>
         <section className="mb-3 mb-lg-5">
-            <div className='mb-3 row'>{data.map((el, i) => <div className='mb-4 col-lg-3 col-sm-6'>
+            <div className='mb-3 row'>{data.map((el, i) => <div key={i} className='mb-4 col-lg-3 col-sm-6'>
                 <ShortInfoCard body={el.body} bodyFooter={el.bodyFooter} />
             </div>)}
             </div>
