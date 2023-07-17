@@ -7,7 +7,8 @@ import { postSignUpApi, postSignInApi } from '../../../http/LoginPage/LoginPage'
 import { LField, Check, LFieldMask } from "../../../components/index";
 
 const auth = yup.object().shape({
-    name: yup.string().trim().required("Обязательно"),
+    phone: yup.string().transform((value) => value.replace(/\+992|\s|\(|\)|-|_/g, ''))
+        .min(9, 'Не менее 9 символов').required("Обязательно"),
     pass: yup.string().trim().required("Обязательно"),
     agree: yup.boolean()
 });
@@ -35,12 +36,12 @@ const Form = ({ type }) => {
 
     const handlerSubmit = (client) => {
         let payload = {
-            "name": client.name,
+            "phone": client.phone,
             "password": client.pass,
         }
 
         if (type) {
-            payload.phone = client.phone
+            payload.name = client.name
             payload.city = client.city
             dispatch(postSignUpApi(payload))
         } else {
@@ -50,23 +51,24 @@ const Form = ({ type }) => {
 
     return <form id="loginForm" action="/" className="">
 
-        <LField
-            id="name"
-            placeholder="Ваше имя"
-            name="name"
-            type="text"
-            register={register}
-            errors={errors} />
 
+        <LFieldMask
+            id="phone"
+            placeholder="Телефон"
+            name="phone"
+            mask="+\9\92 (99) 999-99-99"
+            register={register}
+            errors={errors}
+        />
         {type && <>
-            <LFieldMask
-                id="phone"
-                placeholder="Телефон"
-                name="phone"
-                mask="+\9\92 (99) 999-99-99"
+            <LField
+                id="name"
+                placeholder="Ваше имя"
+                name="name"
+                type="text"
                 register={register}
-                errors={errors}
-            />
+                errors={errors} />
+
             <LField
                 id="city"
                 placeholder="Город"

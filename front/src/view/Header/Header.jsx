@@ -4,11 +4,54 @@ import { FaPaperPlane } from "react-icons/fa";
 import { AiOutlineBarChart } from "react-icons/ai"
 import { useDispatch, useSelector } from "react-redux";
 import { showAC } from "../../store/Reducers/Header";
+import { DropDown } from '../../components';
+import { loginAC } from '../../store/Reducers/LoginPage/LoginPage';
 
 const Header = () => {
+
     const dispatch = useDispatch()
     let { show } = useSelector(state => state.showHeaderSidebar)
+    const [button, setButton] = useState(false)
+    const about = JSON.parse(localStorage.getItem('about'))
     const handleShow = () => dispatch(showAC(!show));
+
+    const logOut = () => {
+        localStorage.removeItem("jwtToken");
+        localStorage.removeItem("about");
+        dispatch(loginAC(null));
+        // window.location.reload()
+    }
+
+    const body = [
+        {
+            action: "Header",
+            role: "User",
+            content: <div class="text-gray-700 dropdown-header" role="heading">
+                <h6 class="text-uppercase font-weight-bold">{about.name}</h6>
+                <small>{about.role === "1" && "Пользователь"}</small>
+            </div>
+        },
+        {
+            action: "body",
+            menu: [
+                {
+                    name: "Настройки",
+                    function: "",
+                    Link: "#"
+                }
+            ]
+        },
+        {
+            action: "footer",
+            menu: [
+                {
+                    name: "Выход",
+                    function: () => logOut(),
+                    Link: "#"
+                }
+            ]
+        }
+    ]
 
     return <header className="header">
         <nav className="px-4 py-2 shadow navbar navbar-expand-lg bg-white">
@@ -46,17 +89,18 @@ const Header = () => {
                         <span className="notification-badge notification-badge-number bg-primary">10</span>
                     </a>
                 </div>
-                <div className="ms-auto dropdown nav-item">
-                    <a id="userInfo" aria-expanded="false" role="button" className="pe-0 dropdown-toggle nav-link" href="#">
-                        <div className="avatar">
-                            <div className="position-relative overflow-hidden rounded-circle h-100 d-flex align-items-center justify-content-center">
-                                <span className={`${style.span}`}>
-                                    <img alt="Jason Doe" srcSet="https://bubbly-react.vercel.app/_next/image?url=%2Fimg%2Favatar-6.jpg&amp;w=48&amp;q=75 1x, /_next/image?url=%2Fimg%2Favatar-6.jpg&amp;w=96&amp;q=75 2x" src="https://bubbly-react.vercel.app/_next/image?url=%2Fimg%2Favatar-6.jpg&amp;w=96&amp;q=75" decoding="async" data-nimg="fixed" className={`rounded-circle ${style.img}`} />
-                                </span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                <DropDown content={body} appClassName={`ms-auto dropdown nav-item`} ButtonChildren={<div className="avatar">
+                    <div className="position-relative overflow-hidden rounded-circle h-100 d-flex align-items-center justify-content-center">
+                        <span className={`${style.span}`}>
+                            <img alt="Jason Doe"
+                                srcSet="https://bubbly-react.vercel.app/_next/image?url=%2Fimg%2Favatar-6.jpg&amp;w=48&amp;q=75 1x, /_next/image?url=%2Fimg%2Favatar-6.jpg&amp;w=96&amp;q=75 2x"
+                                src="https://bubbly-react.vercel.app/_next/image?url=%2Fimg%2Favatar-6.jpg&amp;w=96&amp;q=75"
+                                decoding="async"
+                                data-nimg="fixed"
+                                className={`rounded-circle ${style.img}`} />
+                        </span>
+                    </div>
+                </div>} />
             </div>
         </nav>
     </header>

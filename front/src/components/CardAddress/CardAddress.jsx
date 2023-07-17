@@ -31,15 +31,14 @@ const CustomToggle = forwardRef(({ children, onClick }, ref) => (
 const CardAddress = () => {
     return <div className={`card ${style.main && style.main}`}>
         <div className='card-header'>
-            <h5 className='card-heading'>Адресс доставки</h5>
+            <h5 className='card-heading'>Адрес доставки</h5>
             <div className="card-header-more">
                 <Dropdown>
                     <Dropdown.Toggle
                         as={CustomToggle}>
-
                     </Dropdown.Toggle>
 
-                    <Dropdown.Menu>
+                    <Dropdown.Menu className='dropdown-menu-animated'>
                         <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
                         <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
                         <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>

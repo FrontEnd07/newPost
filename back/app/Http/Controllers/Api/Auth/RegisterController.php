@@ -27,7 +27,7 @@ class RegisterController extends Controller
 
         $newUser = User::orderBy('created_at', 'desc')->first();
         $userResource = new UserResource($newUser);
-
+        
         return response()->json([
             "status" => true,
             "message" => "Пользователь успешно создан",

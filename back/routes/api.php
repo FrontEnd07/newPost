@@ -31,4 +31,4 @@ Route::get('/check-connection', function () {
     } catch (\Exception $e) {
         die("Could not connect to the database. Error: " . $e);
     }
-});
+})->middleware("auth:sanctum");
