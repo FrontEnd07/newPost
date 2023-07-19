@@ -1,16 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    login: null,
+    address: null,
     disabled: false
 }
 
-const loginPageReducer = createSlice({
-    name: 'loginPageReducer',
+const addressReducer = createSlice({
+    name: 'addressReducer',
     initialState,
     reducers: {
-        loginAC(state, action) {
-            state.login = action.payload
+        addressAC(state, action) {
+            state.address = action.payload
         },
         disabledAC(state, action) {
             state.disabled = action.payload
@@ -19,7 +19,7 @@ const loginPageReducer = createSlice({
 })
 
 export const {
-    loginAC,
+    addressAC,
     disabledAC
-} = loginPageReducer.actions
-export default loginPageReducer.reducer
+} = addressReducer.actions
+export default addressReducer.reducer

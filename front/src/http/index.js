@@ -14,7 +14,8 @@ $host.interceptors.request.use((config) => {
 })
 
 $authHost.interceptors.request.use((config) => {
-    config.headers['x-access-token'] = `${JSON.parse(localStorage.getItem('about')).token}`
+    config.headers['Accept'] = `application/json`
+    config.headers['Authorization'] = `Bearer ${localStorage.getItem('jwtToken')}`
     return config
 })
 

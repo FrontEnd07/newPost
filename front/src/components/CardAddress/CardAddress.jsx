@@ -1,6 +1,10 @@
 import React, { forwardRef } from 'react';
 import style from "./CardAddress.module.scss"
+import { FaPen } from "react-icons/fa";
 import Dropdown from 'react-bootstrap/Dropdown';
+import { RiDeleteBin7Fill } from "react-icons/ri";
+import { useDispatch } from 'react-redux';
+import { deleteAddressApi } from '../../http/Main/Address/Address';
 
 const CustomToggle = forwardRef(({ children, onClick }, ref) => (
     <button
@@ -28,36 +32,46 @@ const CustomToggle = forwardRef(({ children, onClick }, ref) => (
     </button>
 ));
 
-const CardAddress = () => {
-    return <div className={`card ${style.main && style.main}`}>
-        <div className='card-header'>
-            <h5 className='card-heading'>Адрес доставки</h5>
-            <div className="card-header-more">
-                <Dropdown>
-                    <Dropdown.Toggle
-                        as={CustomToggle}>
-                    </Dropdown.Toggle>
+const CardAddress = ({ body }) => {
 
-                    <Dropdown.Menu className='dropdown-menu-animated'>
-                        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
+    const dispatch = useDispatch();
+
+    const hundleDelete = (id) => {
+        dispatch(deleteAddressApi(id))
+    }
+
+    return <div className={`mb-2 col-sm-3 ${style.main ? style.main : ""}`}>
+        <div className='h-100 card'>
+            <div className='card-header'>
+                <h5 className='card-heading'>Адрес доставки</h5>
+                <div className="card-header-more">
+                    <Dropdown>
+                        <Dropdown.Toggle
+                            as={CustomToggle}>
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu className='dropdown-menu-animated'>
+                            <Dropdown.Item onClick={() => hundleDelete(body.id)}>
+                                <RiDeleteBin7Fill size={12} className="me-2 opacity-5" />
+                                Удалить
+                            </Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </div>
             </div>
-        </div>
-        <div className='card-body'>
-            <p className="card-text text-muted card-text">
-                John Brown
-                <br />13/25 New Avenue
-                <br />New Heaven
-                <br />
-                45Y 73J
-                <br />
-                England
-                <br />
-                <strong>Great Britain</strong>
-            </p>
+            <div className='card-body'>
+                <p className="card-text text-muted card-text">
+                    {body.phone}
+                    <br />
+                    {body.street}
+                    <br />
+                    {body.city}
+                    <br />
+                    Tajikistan
+                    <br />
+                    <strong>{body.name}</strong>
+                </p>
+            </div>
         </div>
     </div>
 }

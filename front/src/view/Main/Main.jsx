@@ -42,28 +42,28 @@ const Main = () => {
                 }
             ]
         },
-        {
-            "name": "CMS",
-            "icon": <BsTruck className="me-3" size={24} />,
-            "path": [
-                {
-                    "name": "Главное",
-                    "link": '/'
-                },
-                {
-                    "name": "Адресс",
-                    "link": '/address'
-                },
-                {
-                    "name": "Добавить трекер",
-                    "link": '/add-tracker'
-                },
-                {
-                    "name": "Выкуп и доставка",
-                    "link": '/orderdelivery'
-                }
-            ]
-        },
+        // {
+        //     "name": "CMS",
+        //     "icon": <BsTruck className="me-3" size={24} />,
+        //     "path": [
+        //         {
+        //             "name": "Главное",
+        //             "link": '/'
+        //         },
+        //         {
+        //             "name": "Адресс",
+        //             "link": '/address'
+        //         },
+        //         {
+        //             "name": "Добавить трекер",
+        //             "link": '/add-tracker'
+        //         },
+        //         {
+        //             "name": "Выкуп и доставка",
+        //             "link": '/orderdelivery'
+        //         }
+        //     ]
+        // },
     ]
 
     const info = [

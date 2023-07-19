@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as yup from "yup";
-import { useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useDispatch, useSelector } from 'react-redux';
+import { LField, Check, LFieldMask, Button } from "../../../components";
+import { disabledAC } from '../../../store/Reducers/LoginPage/LoginPage';
 import { postSignUpApi, postSignInApi } from '../../../http/LoginPage/LoginPage';
-import { LField, Check, LFieldMask } from "../../../components/index";
 
 const auth = yup.object().shape({
     phone: yup.string().transform((value) => value.replace(/\+992|\s|\(|\)|-|_/g, ''))
@@ -24,6 +25,7 @@ const regSchema = yup.object().shape({
 
 const Form = ({ type }) => {
     const dispatch = useDispatch();
+    let { disabled } = useSelector(state => state.sign)
 
     const {
         register,
@@ -39,7 +41,7 @@ const Form = ({ type }) => {
             "phone": client.phone,
             "password": client.pass,
         }
-
+        dispatch(disabledAC(!disabled))
         if (type) {
             payload.name = client.name
             payload.city = client.city
@@ -99,8 +101,7 @@ const Form = ({ type }) => {
             type="checkbox"
             register={register}
             errors={errors} />}
-
-        <button onClick={handleSubmit(handlerSubmit)} className="btn btn-primary btn-lg">Войти</button>
+        <Button text="Войти" disabled={disabled} hendle={handleSubmit(handlerSubmit)} />
     </form>
 }
 

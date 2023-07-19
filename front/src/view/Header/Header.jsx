@@ -1,33 +1,29 @@
 import React, { useState } from 'react';
 import style from "./Header.module.scss";
+import { DropDown } from '../../components';
 import { FaPaperPlane } from "react-icons/fa";
 import { AiOutlineBarChart } from "react-icons/ai"
-import { useDispatch, useSelector } from "react-redux";
 import { showAC } from "../../store/Reducers/Header";
-import { DropDown } from '../../components';
-import { loginAC } from '../../store/Reducers/LoginPage/LoginPage';
+import { useDispatch, useSelector } from "react-redux";
+import { postLogOutApi } from "../../http/LoginPage/LoginPage";
 
 const Header = () => {
 
     const dispatch = useDispatch()
     let { show } = useSelector(state => state.showHeaderSidebar)
-    const [button, setButton] = useState(false)
     const about = JSON.parse(localStorage.getItem('about'))
     const handleShow = () => dispatch(showAC(!show));
 
     const logOut = () => {
-        localStorage.removeItem("jwtToken");
-        localStorage.removeItem("about");
-        dispatch(loginAC(null));
-        // window.location.reload()
+        dispatch(postLogOutApi());
     }
 
     const body = [
         {
             action: "Header",
             role: "User",
-            content: <div class="text-gray-700 dropdown-header" role="heading">
-                <h6 class="text-uppercase font-weight-bold">{about.name}</h6>
+            content: <div className="text-gray-700 dropdown-header" role="heading">
+                <h6 className="text-uppercase font-weight-bold">{about.name}</h6>
                 <small>{about.role === "1" && "Пользователь"}</small>
             </div>
         },

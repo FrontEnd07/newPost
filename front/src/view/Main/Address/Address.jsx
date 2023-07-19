@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import style from "./Address.module.scss";
 import * as yup from "yup";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { CardAddress } from "../../../components"
 import Containers from "../Containers"
-import { LField, Check, LFieldMask } from "../../../components";
+import { useForm } from "react-hook-form";
+import { CardAddress } from "../../../components"
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useDispatch, useSelector } from 'react-redux';
+import { LField, Check, LFieldMask, Button } from "../../../components";
+import { postAddressApi, optionsAddressApi } from '../../../http/Main/Address/Address';
+import { disabledAC } from '../../../store/Reducers/Main/Address/Address';
 
 const schema = yup.object().shape({
     name: yup.string().trim().required("Обязательно"),
@@ -16,6 +19,8 @@ const schema = yup.object().shape({
 });
 
 const Address = () => {
+    const dispatch = useDispatch();
+    let { disabled, address } = useSelector(state => state.address);
 
     const {
         register,
@@ -26,12 +31,18 @@ const Address = () => {
         resolver: yupResolver(schema),
     });
 
+    useEffect(() => {
+        if (!address) dispatch(optionsAddressApi());
+        return () => { }
+    }, [])
+
     const handlerSubmit = (client) => {
-        console.log(client)
+        dispatch(disabledAC(!disabled))
+        dispatch(postAddressApi(client));
     }
 
     return <Containers header={"Добавить адресс"}>
-        <div className='col-lg-8'>
+        <div className='col-lg-12'>
             <div className='mb-4 card'>
                 <div className='card-header'>
                     <h4 className="card-heading">Заполняйте форму</h4>
@@ -67,13 +78,14 @@ const Address = () => {
                             register={register}
                             errors={errors}
                         />
-                        <button onClick={handleSubmit(handlerSubmit)} className="btn btn-outline-primary">Добавить</button>
+                        <Button text="Добавить" disabled={disabled} hendle={handleSubmit(handlerSubmit)} />
                     </form>
                 </div>
             </div>
-        </div>
-        <div className='col-lg-4'>
-            <CardAddress />
+            <div className='gy-4 row'>
+                {address?.map((el, i) => <CardAddress key={i} body={el} />)}
+                {/* <CardAddress /> */}
+            </div>
         </div>
     </Containers>
 }
