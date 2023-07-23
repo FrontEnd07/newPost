@@ -23,7 +23,11 @@ export const postAddressApi = (payload) => async (dispatch, getState) => {
 export const deleteAddressApi = (id) => async dispatch => {
     try {
         const { data } = await $authHost.delete(`auth/address/${id}`);
-        dispatch(addressAC(data.body))
+        if (data.body.length > 0) {
+            dispatch(addressAC(data.body))
+        } else {
+            dispatch(addressAC(null))
+        }
     } catch (e) {
         console.log(e.message)
     }
@@ -32,7 +36,9 @@ export const deleteAddressApi = (id) => async dispatch => {
 export const optionsAddressApi = () => async dispatch => {
     try {
         const { data } = await $authHost.options(`auth/address`)
-        dispatch(addressAC(data.body))
+        if (data.body.length > 0) {
+            dispatch(addressAC(data.body))
+        }
     } catch (e) {
         console.log(e.message)
     }

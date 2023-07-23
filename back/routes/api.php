@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\Auth\Address\AddController;
 use App\Http\Controllers\Api\Auth\Address\GetController;
 use App\Http\Controllers\Api\Auth\Address\DeleteController;
 use App\Http\Controllers\Api\Auth\Tracker\AddTrackerController;
+use App\Http\Controllers\Api\Auth\Tracker\GetTrackerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,7 @@ Route::post('/auth/address', AddController::class)->middleware("auth:sanctum");
 Route::options('/auth/address', GetController::class)->middleware("auth:sanctum");
 Route::delete('/auth/address/{id}', DeleteController::class)->middleware("auth:sanctum");
 Route::post('/auth/tracker', AddTrackerController::class)->middleware("auth:sanctum");
+Route::get('/auth/tracker', GetTrackerController::class)->middleware("auth:sanctum");
 
 
 Route::get('/check-connection', function () {

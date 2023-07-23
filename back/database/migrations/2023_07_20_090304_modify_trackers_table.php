@@ -14,7 +14,7 @@ class ModifyTrackersTable extends Migration
     public function up()
     {
         Schema::table('trackers', function (Blueprint $table) {
-            $table->dropUnique('trackers_tracker_unique'); // Удаление ограничения уникальности с поля 'tracker'
+            $table->string('name')->nullable()->change();
         });
     }
 

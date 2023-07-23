@@ -26,7 +26,7 @@ class TrackerRequest extends FormRequest
     {
         return [
             'tracker' => ['required', 'string', 'max:255', new UniqueTracker()],
-            'name' => ['required', 'string', 'max:255'],
+            'name' => [ 'max:255'],
             'quantity' => ['required', 'numeric'],
             'streetId' => ['required', 'numeric'],
         ];

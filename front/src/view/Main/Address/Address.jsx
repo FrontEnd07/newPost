@@ -6,9 +6,9 @@ import { useForm } from "react-hook-form";
 import { CardAddress } from "../../../components"
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch, useSelector } from 'react-redux';
-import { LField, Check, LFieldMask, Button } from "../../../components";
-import { postAddressApi, optionsAddressApi } from '../../../http/Main/Address/Address';
+import { LField, LFieldMask, Button } from "../../../components";
 import { disabledAC } from '../../../store/Reducers/Main/Address/Address';
+import { postAddressApi, optionsAddressApi } from '../../../http/Main/Address/Address';
 
 const schema = yup.object().shape({
     name: yup.string().trim().required("Обязательно"),

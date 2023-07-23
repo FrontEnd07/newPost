@@ -1,1 +1,13 @@
 .main {}
+
+.radio {
+    display: flex;
+
+    >:first-child {
+        padding-right: 10px;
+    }
+}
+
+.RError {
+    color: #dc3545;
+}

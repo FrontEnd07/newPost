@@ -2,10 +2,9 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Address;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AddressResource extends JsonResource
+class AddressInstanceResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,8 +14,12 @@ class AddressResource extends JsonResource
      */
     public function toArray($request)
     {
-        return $this->resource->map(function ($item) {
-            return new AddressInstanceResource($item);
-        });
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'city' => $this->city,
+            'street' => $this->street,
+            'phone' => $this->phone,
+        ];
     }
 }

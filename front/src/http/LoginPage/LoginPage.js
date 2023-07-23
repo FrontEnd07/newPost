@@ -56,7 +56,6 @@ export const postLogOutApi = () => async (dispatch, getState) => {
             if (address) dispatch(addressAC(null))
             dispatch(loginAC(false));
         }
-        console.log(data)
     } catch (e) {
         console.log(e.message)
     }

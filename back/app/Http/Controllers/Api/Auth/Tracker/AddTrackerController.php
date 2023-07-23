@@ -23,17 +23,19 @@ class AddTrackerController extends Controller
             ['userId' => $user],
         ));
 
+        $limit = $request->perPage ? $request->perPage : 10;
+        $sortBy = $request->sort ? $request->sort : 'created_at';
+
         $resource = new TrackerResource(
             $adding->where(["userId" => $user])
-                ->orderBy('created_at', 'desc')
-                ->limit(10)
-                ->get()
+                ->orderBy($sortBy)
+                ->paginate($limit)
         );
 
         return response()->json([
             "status" => true,
             "body" => $resource,
-            "message" => "Адрес добавлен"
+            "message" => "Трекер добавлен"
         ]);
     }
 }

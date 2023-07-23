@@ -1,7 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import style from "./Table.module.scss";
+import { Loading, Pagination } from "../";
+import { useDebounce } from 'usehooks-ts'
+import { useSelector } from 'react-redux';
 
-const Table = ({ data }) => {
+
+const Table = ({ data, handlerTable }) => {
+    const [query, setQuery] = useState(null)
+    const debouncedValue = useDebounce(query, 500)
+    const [isInitialRender, setIsInitialRender] = useState(true);
+    const { meta, loading } = useSelector(state => state.tracker);
+
+    useEffect(() => {
+        if (isInitialRender) {
+            setIsInitialRender(false);
+            return;
+        }
+
+        handlerTable({ search: debouncedValue });
+    }, [debouncedValue])
 
     return <div className={`card-table card ${style.main ? style.main : ""}`}>
         <div className='dataTable-top'>
@@ -13,22 +30,23 @@ const Table = ({ data }) => {
                 <button type="button" className="align-top mb-1 mb-lg-0 btn btn-outline-primary btn-sm">Apply</button>
             </span>
             <div className="d-inline-block">
-                <select className="d-inline w-auto me-1 form-select form-select-sm">
-                    <option>5</option>
-                    <option>10</option>
-                    <option>15</option>
-                    <option>20</option>
-                    <option>25</option>
+                <select defaultValue="10" onChange={(e) => handlerTable({ perPage: e.target.value })} className="d-inline w-auto me-1 form-select form-select-sm">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="25">25</option>
                 </select>
             </div>
             <div className="d-inline-block">
-                <input placeholder="Search" type="text" id="search" className="form-control" />
+                <input type="search" onChange={(e) => setQuery(e.target.value)} placeholder="Трекер, Наименования, Статус, Адрес" id="search" className="form-control" />
             </div>
         </div>
-        <div className='table-responsive'>
-            <table role="table" className="align-middle mb-0 table table-hover">
-                <thead className="">
-                    <tr role="row">{data[0].tableTop.map((el, i) => <th key={i} colSpan="1" role="columnheader" className="py-4">
+        <div className='table-responsive' style={{ position: "relative" }}>
+            {loading && <Loading />}
+            <table className="align-middle mb-0 table table-hover">
+                <thead>
+                    <tr>{data[0].tableTop?.map((el, i) => <th onClick={() => handlerTable({ sort: el.sort })} key={i} colSpan="1" style={{ cursor: 'pointer' }} className="py-4">
                         <span className="d-flex align-items-center text-transform-none">
                             {el.name}
                             <span className="d-grid ms-auto">
@@ -44,7 +62,7 @@ const Table = ({ data }) => {
                     </th>)}
                     </tr>
                 </thead>
-                <tbody className="position-relative border-top-0">{data[1].tableBody.map((el, i) => <tr key={i} role="row">
+                <tbody className="position-relative border-top-0">{data[1].tableBody?.map((el, i) => <tr key={i} role="row">
                     <td className="">
                         <div className="">
                             <input type="checkbox" className="form-check-input" />
@@ -64,12 +82,14 @@ const Table = ({ data }) => {
                         </span>
                     </td>
                     <td className="text-end">{el.name === "0" ? '-' : el.name}</td>
+                    <td className="text-end">{el.street}</td>
                 </tr>)}
                 </tbody>
             </table>
         </div>
         <div className='dataTable-bottom align-items-center d-flex'>
-            <div className="flex-shrink-0 mb-2 mb-md-0 me-auto">Showing page 1 of 1</div>
+            <div className="flex-shrink-0 mb-2 mb-md-0 me-auto">Показаны страницы {meta?.currentPage} из {meta?.lastPage}</div>
+            <Pagination total={meta?.total} perPage={meta?.perPage} handlerTable={handlerTable} currentPage={meta?.currentPage} lastPage={meta?.lastPage} />
         </div>
     </div>
 }
