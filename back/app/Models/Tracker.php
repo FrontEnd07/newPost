@@ -23,4 +23,9 @@ class Tracker extends Model
     {
         return $this->belongsTo(Address::class, 'streetId', 'id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'userId');
+    }
 }

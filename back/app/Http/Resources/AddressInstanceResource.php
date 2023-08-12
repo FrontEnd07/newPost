@@ -20,6 +20,7 @@ class AddressInstanceResource extends JsonResource
             'city' => $this->city,
             'street' => $this->street,
             'phone' => $this->phone,
+            'default' => $this->default
         ];
     }
 }

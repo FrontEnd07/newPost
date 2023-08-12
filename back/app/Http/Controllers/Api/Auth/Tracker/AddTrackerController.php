@@ -24,11 +24,10 @@ class AddTrackerController extends Controller
         ));
 
         $limit = $request->perPage ? $request->perPage : 10;
-        $sortBy = $request->sort ? $request->sort : 'created_at';
 
         $resource = new TrackerResource(
             $adding->where(["userId" => $user])
-                ->orderBy($sortBy)
+                ->orderBy("id")
                 ->paginate($limit)
         );
 

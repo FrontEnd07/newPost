@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import style from "./Address.module.scss";
+import React from 'react';
+// import style from "./Address.module.scss";
 import * as yup from "yup";
 import Containers from "../Containers"
 import { useForm } from "react-hook-form";
@@ -7,8 +7,8 @@ import { CardAddress } from "../../../components"
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch, useSelector } from 'react-redux';
 import { LField, LFieldMask, Button } from "../../../components";
+import { postAddressApi } from '../../../http/Main/Address/Address';
 import { disabledAC } from '../../../store/Reducers/Main/Address/Address';
-import { postAddressApi, optionsAddressApi } from '../../../http/Main/Address/Address';
 
 const schema = yup.object().shape({
     name: yup.string().trim().required("Обязательно"),
@@ -30,11 +30,6 @@ const Address = () => {
         mode: "onChange",
         resolver: yupResolver(schema),
     });
-
-    useEffect(() => {
-        if (!address) dispatch(optionsAddressApi());
-        return () => { }
-    }, [])
 
     const handlerSubmit = (client) => {
         dispatch(disabledAC(!disabled))
@@ -84,7 +79,6 @@ const Address = () => {
             </div>
             <div className='gy-4 row'>
                 {address?.map((el, i) => <CardAddress key={i} body={el} />)}
-                {/* <CardAddress /> */}
             </div>
         </div>
     </Containers>

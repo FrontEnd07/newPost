@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ModifyTrackersTable extends Migration
+class CreateAdminTrackersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class ModifyTrackersTable extends Migration
      */
     public function up()
     {
-        Schema::table('trackers', function (Blueprint $table) {
-            $table->string('name')->nullable()->change();
+        Schema::create('admin_trackers', function (Blueprint $table) {
+            $table->id();
+            $table->string("tracker");
+            $table->string("user")->nullable();
+            $table->string("image")->nullable();
+            $table->timestamps();
         });
     }
 
@@ -25,6 +29,6 @@ class ModifyTrackersTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('admin_trackers');
     }
 }

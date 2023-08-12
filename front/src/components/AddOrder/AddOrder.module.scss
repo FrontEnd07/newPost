@@ -1,0 +1,19 @@
+.radio {
+    display: flex;
+    cursor: pointer;
+}
+
+.RError {
+    color: #dc3545;
+}
+
+.addBlock {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    >:last-child {
+        cursor: pointer;
+        color: #dc3545;
+    }
+}

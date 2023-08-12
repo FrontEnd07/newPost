@@ -71,6 +71,7 @@ const Form = () => {
             type="text"
             register={register}
             errors={errors} />
+
         {address ? <Radio
             name="radio"
             options={radioOptions}
@@ -78,7 +79,7 @@ const Form = () => {
             errors={errors}
         /> : <Link to="/address" className={`mb-3 ${style.radio} ${errors["radio"] ? style.RError : ""}`}>
             <div><AiOutlinePlus size={17} /></div>
-            <div>Добавить адрес</div>
+            <div className='form-check'>Добавить адрес</div>
         </Link>}
         <Button text="Добавить" disabled={disabled} hendle={handleSubmit(handlerSubmit)} />
     </form>

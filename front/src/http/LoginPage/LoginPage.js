@@ -1,6 +1,8 @@
 import { toast } from "react-toastify";
 import { $host, $authHost } from "../index"
+import { orderAC } from "../../store/Reducers/Order";
 import { addressAC } from '../../store/Reducers/Main/Address';
+import { trackerAC } from "../../store/Reducers/Main/Tracker";
 import { loginAC, disabledAC } from "../../store/Reducers/LoginPage/LoginPage";
 
 export const postSignUpApi = (payload) => async (dispatch, getState) => {
@@ -48,12 +50,16 @@ export const postSignInApi = (payload) => async (dispatch, getState) => {
 
 export const postLogOutApi = () => async (dispatch, getState) => {
     let { address } = getState().address
+    let { order } = getState().order
+    let { tracker } = getState().tracker
     try {
         const { data } = await $authHost.post(`auth/logout`)
         if (data.status) {
             localStorage.removeItem("jwtToken");
             localStorage.removeItem("about");
             if (address) dispatch(addressAC(null))
+            if (order) dispatch(orderAC([]))
+            if (tracker) dispatch(trackerAC(null))
             dispatch(loginAC(false));
         }
     } catch (e) {

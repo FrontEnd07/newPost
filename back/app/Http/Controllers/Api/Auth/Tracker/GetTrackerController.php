@@ -18,7 +18,6 @@ class GetTrackerController extends Controller
     public function __invoke(Request $request)
     {
         $user = $request->user()->id;
-
         $limit = $request->perPage ? $request->perPage : 10;
         $sortBy = $request->sort ? $request->sort : 'created_at';
         $search = $request->search ? $request->search : '';

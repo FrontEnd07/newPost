@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import style from "./Table.module.scss";
+import { useDispatch } from "react-redux";
 import { Loading, Pagination } from "../";
 import { useDebounce } from 'usehooks-ts'
 import { useSelector } from 'react-redux';
+import { deleteTrackerApi } from '../../http/Main/Tracker';
+import { Button } from "../"
 
 
 const Table = ({ data, handlerTable }) => {
+    const dispatch = useDispatch();
     const [query, setQuery] = useState(null)
-    const debouncedValue = useDebounce(query, 500)
+    const [check, setCheck] = useState({ selection: {} })
     const [isInitialRender, setIsInitialRender] = useState(true);
+
+    const debouncedValue = useDebounce(query, 500)
     const { meta, loading } = useSelector(state => state.tracker);
 
     useEffect(() => {
@@ -20,14 +26,33 @@ const Table = ({ data, handlerTable }) => {
         handlerTable({ search: debouncedValue });
     }, [debouncedValue])
 
+    const handlerCheck = (id, event) => {
+        setCheck(state => {
+            const selection = {
+                ...check.selection,
+                [id]: event.target.checked
+            };
+
+            if (!event.target.checked) delete selection[id];
+
+            return {
+                ...state,
+                selection
+            };
+        })
+    }
+
+    const handlerDelete = () => {
+        if (Object.keys(check.selection).length > 0) {
+            dispatch(deleteTrackerApi(Object.keys(check.selection).map(Number)))
+            setCheck({ selection: {} })
+        }
+    }
+
     return <div className={`card-table card ${style.main ? style.main : ""}`}>
         <div className='dataTable-top'>
             <span className="me-2">
-                <select className="d-inline w-auto me-1 form-select form-select-sm">
-                    <option>Bulk Actions</option>
-                    <option>Delete</option>
-                </select>
-                <button type="button" className="align-top mb-1 mb-lg-0 btn btn-outline-primary btn-sm">Apply</button>
+                <Button hendle={handlerDelete} text="Удалить" appClassName="align-top mb-1 mb-lg-0 btn btn-outline-primary btn-sm" />
             </span>
             <div className="d-inline-block">
                 <select defaultValue="10" onChange={(e) => handlerTable({ perPage: e.target.value })} className="d-inline w-auto me-1 form-select form-select-sm">
@@ -63,9 +88,15 @@ const Table = ({ data, handlerTable }) => {
                     </tr>
                 </thead>
                 <tbody className="position-relative border-top-0">{data[1].tableBody?.map((el, i) => <tr key={i} role="row">
-                    <td className="">
-                        <div className="">
-                            <input type="checkbox" className="form-check-input" />
+                    <td>
+                        <div>
+                            <input
+                                style={{ cursor: "pointer" }}
+                                type="checkbox"
+                                onChange={event => handlerCheck(el.id, event)}
+                                className="form-check-input"
+                                checked={check.selection[el.id] || false}
+                            />
                         </div>
                     </td>
                     <td className="text-start">
