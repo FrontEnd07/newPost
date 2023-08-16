@@ -29,6 +29,10 @@ export const postAdminAddTrackerApi = (payload) => async (dispatch) => {
         dispatch(disabledAC(true))
         const { data } = await $authHost.post(`auth/admin`, payload)
         handleSuccessResponse(data, dispatch)
+        if (data.status) {
+            dispatch(trackerAdminAC(data.body.item))
+            dispatch(metaAC(data.body.meta))
+        }
         dispatch(disabledAC(false))
     } catch (e) {
         for (var key in e.response.data.errors) {
@@ -48,6 +52,21 @@ export const getAdminTrackerApi = (payload = "") => async (dispatch) => {
             dispatch(metaAC(data.body.meta))
             dispatch(loadingAC(false))
         }
+    } catch (e) {
+        console.log(e.message)
+    }
+}
+
+export const deleteAdminTrackerApi = (payload) => async dispatch => {
+    try {
+        dispatch(loadingAC(true));
+        const { data } = await $authHost.delete(`auth/admin`, { data: payload })
+        if (data.status) {
+            handleSuccessResponse(data, dispatch);
+            dispatch(trackerAdminAC(data.body.item))
+            dispatch(metaAC(data.body.meta))
+        }
+        dispatch(loadingAC(false));
     } catch (e) {
         console.log(e.message)
     }

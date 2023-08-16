@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use App\Models\AdminTracker;
 use Illuminate\Support\Str;
+use App\Models\Status;
 use App\Models\User;
 
 class AdminAddTrackerController extends Controller
@@ -33,21 +34,21 @@ class AdminAddTrackerController extends Controller
             Storage::disk("public")->put($imageName, file_get_contents($request->image));
         }
 
-        $limit = $request->perPage ? $request->perPage : 10;
+        $limit = $request->perPage ? $request->perPage : 5;
 
-        $data = [];
         foreach ($request->tracker as $item) {
-            $data[] = array_merge(
-                $request->only("tracker"),
-                ['user_id' => $id],
-                ['image' => $imageName],
-                ['tracker' => $item],
-                ['created_at' => now()],
-                ['updated_at' => now()],
-            );
+            $tracker = new AdminTracker();
+            $status = new Status();
+            if (!$tracker->where("tracker", $item)->exists()) {
+                $tracker->user_id = $id;
+                $tracker->image = $imageName;
+                $tracker->tracker = $item;
+                $tracker->save();
+            }
+            $status->status = $request->status;
+            $status->tracker_id = $tracker->where("tracker", $item)->first()->id;
+            $status->save();
         }
-
-        AdminTracker::insert($data);
 
         $resource = new AdminTrackerResource(AdminTracker::orderBy("id", "desc")
             ->paginate($limit));

@@ -24,6 +24,7 @@ class TrackerResource extends JsonResource
                     'street' => $item->streetId,
                     'quantity' => $item->quantity,
                     'date' => $item->created_at,
+                    'status' => $item->adminTrackerStatuses,
                     'address' => $item->address ? new AddressInstanceResource($item->address) : null
                 ];
             }),

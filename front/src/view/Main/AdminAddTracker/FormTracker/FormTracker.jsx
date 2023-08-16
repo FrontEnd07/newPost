@@ -12,6 +12,7 @@ import { getUserApi, postAdminAddTrackerApi } from "../../../../http/Main/AdminA
 
 const schema = yup.object().shape({
     tracker: yup.string().required("Обязательно"),
+    status: yup.string().required("Обязательно"),
     phone: yup.string().transform((value) => value.replace(/\+992|\s|\(|\)|-|_/g, '')),
     image: yup.mixed(),
 });
@@ -60,6 +61,7 @@ const FormTracker = () => {
             formData.append('image', data.image);
         }
         formData.append('phone', data.phone);
+        formData.append('status', data.status);
         dispatch(postAdminAddTrackerApi(formData))
     }
 
@@ -76,6 +78,13 @@ const FormTracker = () => {
                     type="text"
                     register={register}
                     small="Вы можете вводит до 255 символов, несколько трек-номеров, разделяя их пробелами или другими знаками табуляции."
+                    errors={errors} />
+                <LField
+                    id="status"
+                    placeholder="Статус"
+                    name="status"
+                    type="text"
+                    register={register}
                     errors={errors} />
                 <div style={{ position: "relative" }}>
                     <LFieldMask

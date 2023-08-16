@@ -1,10 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, forwardRef } from 'react';
 import { Button } from "../"
 import { useDebounce } from 'usehooks-ts'
 import { useDispatch } from "react-redux";
 import { Pagination } from "../../components";
-import { useTable, useSortBy } from "react-table";
-const ReactTable = ({ columns, data, meta, manualPagination = false, handlerTable, placeholder, deleteType }) => {
+import {
+    useTable,
+    useSortBy,
+} from "react-table";
+
+const ReactTable = ({ columns,
+    data,
+    meta,
+    placeholder,
+    handlerTable,
+    deleteHandler = false,
+    manualPagination = false
+}) => {
 
     const dispatch = useDispatch();
     const [query, setQuery] = useState(null)
@@ -12,6 +23,22 @@ const ReactTable = ({ columns, data, meta, manualPagination = false, handlerTabl
     const [isInitialRender, setIsInitialRender] = useState(true);
 
     const debouncedValue = useDebounce(query, 500)
+
+    const handlerCheck = (id, event) => {
+        setCheck(state => {
+            const selection = {
+                ...check.selection,
+                [id]: event.target.checked
+            };
+
+            if (!event.target.checked) delete selection[id];
+
+            return {
+                ...state,
+                selection
+            };
+        })
+    }
 
     useEffect(() => {
         if (isInitialRender) {
@@ -24,7 +51,7 @@ const ReactTable = ({ columns, data, meta, manualPagination = false, handlerTabl
 
     const handlerDelete = () => {
         if (Object.keys(check.selection).length > 0) {
-            // dispatch(deleteTrackerApi(Object.keys(check.selection).map(Number)))
+            deleteHandler(Object.keys(check.selection).map(Number))
             setCheck({ selection: {} })
         }
     }
@@ -43,7 +70,7 @@ const ReactTable = ({ columns, data, meta, manualPagination = false, handlerTabl
 
     return <div>
         <div className='dataTable-top'>
-            {deleteType && <span className="me-2">
+            {deleteHandler && <span className="me-2">
                 <Button hendle={handlerDelete} text="Удалить" appClassName="align-top mb-1 mb-lg-0 btn btn-outline-primary btn-sm" />
             </span>}
             <div className="d-inline-block">
@@ -86,7 +113,12 @@ const ReactTable = ({ columns, data, meta, manualPagination = false, handlerTabl
                                     style={{ maxWidth: "200px" }}
                                     className="text-start"
                                     {...cell.getCellProps()}>
-                                    {cell.render("Cell")}
+                                    {(cell.column.id === 'id' && deleteHandler) ? <input
+                                        style={{ cursor: "pointer" }}
+                                        type="checkbox"
+                                        onChange={event => handlerCheck(cell.value, event)}
+                                        checked={check.selection[cell.value] || false}
+                                    /> : cell.render('Cell')}
                                 </td>;
                             })}
                         </tr>

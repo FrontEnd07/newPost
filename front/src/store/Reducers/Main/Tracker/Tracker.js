@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    tracker: null,
+    tracker: [],
     disabled: false,
-    meta: null,
+    meta: [],
     loading: false
 }
 

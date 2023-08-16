@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import 'moment/locale/ru';
+import moment from "moment";
 import style from "./TableContainer.module.scss"
 import { useSelector, useDispatch } from 'react-redux';
 import { ReactTable, Loading } from '../../../../components';
-import { getAdminTrackerApi } from '../../../../http/Main/AdminAddTracker';
 import { http_build_query } from "../../../../utils/NFormatter";
-
+import { getAdminTrackerApi } from '../../../../http/Main/AdminAddTracker';
+import { deleteAdminTrackerApi } from '../../../../http/Main/AdminAddTracker';
 const columns = [
     {
         Header: "id",
@@ -35,7 +37,7 @@ const columns = [
             if (user) {
                 return <div>{user.name}, {user.phone}</div>
             }
-            return "Пользователь не добавлен!"
+            return "-"
         },
         sortable: true
     },
@@ -47,8 +49,32 @@ const columns = [
             if (userTrackerInfo) {
                 return <div>{userTrackerInfo.name}, {userTrackerInfo.phone}</div>
             }
-            return "Пользователь не найден!"
+            return "-"
         },
+        sortable: true
+    },
+    {
+        Header: "Статус",
+        accessor: "status",
+        Cell: ({ row }) => {
+            const { status } = row.original
+            if (status.length > 0) {
+                return status.map((el, i) => <div>
+                    <span className="badge text-success bg-success-light">
+                        <span className="indicator"></span>
+                        {el.status}
+                    </span>
+                </div>)
+            } else {
+                return "-"
+            }
+        },
+        sortable: true
+    },
+    {
+        Header: "Дата",
+        accessor: "date",
+        Cell: ({ row }) => moment(row.original.date).locale('ru').format("DD MMMM YYYY"),
         sortable: true
     },
 ]
@@ -58,25 +84,29 @@ const TableContainer = () => {
     const [tableFilter, setTableFilter] = useState({});
     let { loading, trackerAdmin, meta } = useSelector(state => state.adminAddTracker)
 
-    const handlerTable = (filter) => {
-        const keys = Object.keys(filter)[0];
-        setTableFilter(prev => ({ ...prev, [keys]: filter[keys] }));
-    };
-
     useEffect(() => {
         if (Object.keys(tableFilter).length > 0) {
             dispatch(getAdminTrackerApi(`?` + http_build_query(tableFilter)));
         }
     }, [tableFilter]);
 
+    const handlerTable = (filter) => {
+        const keys = Object.keys(filter)[0];
+        setTableFilter(prev => ({ ...prev, [keys]: filter[keys] }));
+    };
+
+    const deleteHandler = (id) => {
+        dispatch(deleteAdminTrackerApi(id));
+    }
+
     return <div className="card-table card">
         {loading && <Loading />}
         <ReactTable
-            deleteType={false}
+            meta={meta}
             columns={columns}
             data={trackerAdmin}
-            meta={meta}
             placeholder="Трекер"
+            deleteHandler={deleteHandler}
             handlerTable={handlerTable}
         />
     </div>

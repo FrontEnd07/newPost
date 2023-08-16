@@ -3,8 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Models\User;
-use App\Models\AdminTracker;
+use App\Http\Resources\StatusTrackerResource;
 
 class AdminTrackerResource extends JsonResource
 {
@@ -21,6 +20,7 @@ class AdminTrackerResource extends JsonResource
                 return [
                     'id' => $item->id,
                     'tracker' => $item->tracker,
+                    'status' => new StatusTrackerResource($item->statuses),
                     'image' => $item->image ? asset('storage/' . $item->image) : null,
                     'user' => $item->userData ? ["name" => $item->userData->name, "phone" => $item->userData->phone] : null,
                     'date' => $item->created_at,

@@ -28,7 +28,7 @@ const Main = () => {
                     "link": '/'
                 },
                 {
-                    "name": "Адресс",
+                    "name": "Адрес",
                     "link": '/address'
                 },
                 {

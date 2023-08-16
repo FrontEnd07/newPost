@@ -60,19 +60,22 @@ const TableContainer = () => {
         }
     }, [tableFilter]);
 
-    return (
-        <div className="card-table card">
-            {loading && <Loading />}
-            <ReactTable
-                deleteType={false}
-                columns={columns}
-                data={order}
-                meta={meta}
-                placeholder="Ссылка, цена, количество, id"
-                handlerTable={handlerTable}
-            />
-        </div>
-    );
+    const deleteHandler = (id) => {
+        // dispatch();
+        console.log(id)
+    }
+
+    return <div className="card-table card">
+        {loading && <Loading />}
+        <ReactTable
+            deleteHandler={deleteHandler}
+            columns={columns}
+            data={order}
+            meta={meta}
+            placeholder="Ссылка, цена, количество, id"
+            handlerTable={handlerTable}
+        />
+    </div>
 }
 
 export default TableContainer;

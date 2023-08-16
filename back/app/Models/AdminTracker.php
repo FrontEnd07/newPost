@@ -26,4 +26,9 @@ class AdminTracker extends Model
     {
         return $this->belongsTo(Tracker::class, 'tracker', 'tracker');
     }
+
+    public function statuses()
+    {
+        return $this->hasMany(Status::class, 'tracker_id', 'id');
+    }
 }

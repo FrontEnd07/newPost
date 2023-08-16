@@ -24,7 +24,7 @@ const Header = () => {
 
     useEffect(() => {
         if (!address) dispatch(optionsAddressApi());
-        if (!tracker) dispatch(getTrackerApi());
+        if (tracker.length === 0) dispatch(getTrackerApi());
         if (order.length === 0) dispatch(getOrderapi())
         if (trackerAdmin.length === 0) dispatch(getAdminTrackerApi())
     }, [])

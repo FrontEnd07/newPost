@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
@@ -27,5 +28,10 @@ class Tracker extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'userId');
+    }
+
+    public function adminTrackerStatuses(): HasManyThrough
+    {
+        return $this->HasManyThrough(Status::class, AdminTracker::class, 'tracker', 'tracker_id', 'tracker');
     }
 }

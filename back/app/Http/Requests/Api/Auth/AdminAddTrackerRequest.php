@@ -26,6 +26,7 @@ class AdminAddTrackerRequest extends FormRequest
     {
         return [
             'tracker' => ['required', 'array'],
+            'status' => ['required', 'string'],
             'tracker.*' => ['required', 'string', 'max:255'],
             'phone' => ['nullable', new AddTrackerAdmin],
         ];
