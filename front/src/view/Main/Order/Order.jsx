@@ -2,7 +2,7 @@ import React from 'react';
 // import style from "./Order.module.scss";
 import { AddOrder } from '../../../components';
 import Containers from '../Containers/Containers';
-import TableContainer from './TableContainer/TableContainer';
+import TableContainer from './TableContainer';
 
 const Order = () => <Containers header={"Заказы"}>
     <section>

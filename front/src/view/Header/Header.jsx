@@ -3,12 +3,9 @@ import style from "./Header.module.scss";
 import { DropDown } from '../../components';
 import { FaPaperPlane } from "react-icons/fa";
 import { AiOutlineBarChart } from "react-icons/ai"
-import { getOrderapi } from '../../http/Main/Order';
 import { showAC } from "../../store/Reducers/Header";
 import { useDispatch, useSelector } from "react-redux";
-import { getTrackerApi } from '../../http/Main/Tracker';
 import { optionsAddressApi } from '../../http/Main/Address';
-import { getAdminTrackerApi } from '../../http/Main/AdminAddTracker';
 import { postLogOutApi } from "../../http/LoginPage/LoginPage";
 
 const Header = () => {
@@ -16,17 +13,11 @@ const Header = () => {
     const dispatch = useDispatch()
     let { show } = useSelector(state => state.showHeaderSidebar)
     let { address } = useSelector(state => state.address);
-    let { tracker } = useSelector(state => state.tracker);
-    let { order } = useSelector(state => state.order);
-    let { trackerAdmin } = useSelector(state => state.adminAddTracker);
 
     const about = JSON.parse(localStorage.getItem('about'))
 
     useEffect(() => {
         if (!address) dispatch(optionsAddressApi());
-        if (tracker.length === 0) dispatch(getTrackerApi());
-        if (order.length === 0) dispatch(getOrderapi())
-        if (trackerAdmin.length === 0) dispatch(getAdminTrackerApi())
     }, [])
 
     const handleShow = () => dispatch(showAC(!show));

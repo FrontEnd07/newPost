@@ -2,8 +2,12 @@ import { $authHost } from "../..";
 import 'moment/locale/ru';
 import moment from "moment";
 import { toast } from "react-toastify";
-import { disabledAC } from "../../../store/Reducers/Order/Order";
-import { orderAC, metaAC, loadingAC } from "../../../store/Reducers/Order/Order";
+import {
+    orderAC,
+    metaAC,
+    loadingAC,
+    disabledAC
+} from "../../../store/Reducers/Order";
 
 const handleSuccessResponse = (data, dispatch) => {
     if (data.status) {

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import style from "./TableContainer.module.scss"
+import style from "./TableContainer.module.scss";
 import 'moment/locale/ru';
+import moment from "moment";
 import { useDispatch, useSelector } from 'react-redux';
-import { getOrderapi } from '../../../../http/Main/Order';
-import { ReactTable, Loading } from '../../../../components';
+import { ReactTable, Loading } from "../../../../components";
 import { http_build_query } from '../../../../utils/NFormatter';
-import { orderAC } from '../../../../store/Reducers/Order';
+import { listAC } from '../../../../store/Reducers/Main/AdminOrderList';
+import { getAdminOrderListApi, deleteAdminOrderApi } from "../../../../http/Main/AdminOrderList"
 
 const columns = [
     {
@@ -28,7 +29,12 @@ const columns = [
     },
     { Header: "Цены", accessor: "price", sortable: false },
     { Header: "Количество", accessor: "quantity", sortable: true },
-    { Header: "Дата", accessor: "date", sortable: true },
+    {
+        Header: "Дата",
+        accessor: "date",
+        Cell: ({ row }) => moment(row.original.date).local("ru").format("DD MMMM YYYY"),
+        sortable: true
+    },
     {
         Header: "Параметры",
         accessor: "parametrs",
@@ -48,39 +54,38 @@ const columns = [
 const TableContainer = () => {
     const dispatch = useDispatch();
     const [tableFilter, setTableFilter] = useState({});
-    const { order, meta, loading } = useSelector((state) => state.order);
+    let { list, loading, meta } = useSelector(state => state.orderList)
+
+    useEffect(() => {
+        if (list.length === 0) {
+            dispatch(getAdminOrderListApi())
+        }
+        return () => dispatch(listAC([]))
+    }, [])
+
+    useEffect(() => {
+        if (Object.keys(tableFilter).length > 0) {
+            dispatch(getAdminOrderListApi(`?` + http_build_query(tableFilter)))
+        }
+    }, [tableFilter]);
 
     const handlerTable = (filter) => {
         const keys = Object.keys(filter)[0];
         setTableFilter(prev => ({ ...prev, [keys]: filter[keys] }));
     };
 
-    useEffect(() => {
-        if (order.length === 0) {
-            dispatch(getOrderapi())
-        }
-        return () => dispatch(orderAC([]))
-    }, [])
-
-    useEffect(() => {
-        if (Object.keys(tableFilter).length > 0) {
-            dispatch(getOrderapi(`?` + http_build_query(tableFilter)));
-        }
-    }, [tableFilter]);
-
     const deleteHandler = (id) => {
-        // dispatch();
-        console.log(id)
+        dispatch(deleteAdminOrderApi(id));
     }
 
     return <div className="card-table card">
         {loading && <Loading />}
         <ReactTable
-            deleteHandler={deleteHandler}
-            columns={columns}
-            data={order}
             meta={meta}
-            placeholder="Ссылка, цена, количество, id"
+            columns={columns}
+            data={list}
+            placeholder="Трекер"
+            deleteHandler={deleteHandler}
             handlerTable={handlerTable}
         />
     </div>

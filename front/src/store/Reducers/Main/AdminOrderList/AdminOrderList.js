@@ -1,21 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    disabled: false,
-    order: [],
+    list: [],
     meta: [],
     loading: false
 }
 
-const orderReducer = createSlice({
-    name: 'orderReducer',
+const adminOrderListReduser = createSlice({
+    name: 'adminOrderListReduser',
     initialState,
     reducers: {
-        disabledAC(state, action) {
-            state.disabled = action.payload
-        },
-        orderAC(state, action) {
-            state.order = action.payload
+        listAC(state, action) {
+            state.list = action.payload
         },
         metaAC(state, action) {
             state.meta = action.payload
@@ -27,9 +23,8 @@ const orderReducer = createSlice({
 })
 
 export const {
-    disabledAC,
-    orderAC,
+    listAC,
     metaAC,
     loadingAC
-} = orderReducer.actions
-export default orderReducer.reducer
+} = adminOrderListReduser.actions
+export default adminOrderListReduser.reducer

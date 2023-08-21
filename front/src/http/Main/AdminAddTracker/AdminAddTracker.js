@@ -2,7 +2,12 @@ import { $authHost, $host } from "../../index"
 import 'moment/locale/ru';
 import moment from "moment";
 import { toast } from "react-toastify";
-import { disabledAC, trackerAdminAC, loadingAC, metaAC } from "../../../store/Reducers/Main/AddTrackerAdmin";
+import {
+    disabledAC,
+    trackerAdminAC,
+    loadingAC,
+    metaAC
+} from "../../../store/Reducers/Main/AddTrackerAdmin";
 
 
 const handleSuccessResponse = (data, dispatch) => {

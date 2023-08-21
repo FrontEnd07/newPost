@@ -17,6 +17,9 @@ use App\Http\Controllers\Api\Auth\Tracker\DeleteTrackerController;
 use App\Http\Controllers\Api\Auth\Admin\AdminAddTrackerController;
 use App\Http\Controllers\Api\Auth\Admin\GetAdminTrackerController;
 use App\Http\Controllers\Api\Auth\Admin\DeleteAdminTrackerController;
+use App\Http\Controllers\Api\Auth\Admin\User\AllOrderListController;
+use App\Http\Controllers\Api\Auth\Admin\User\DeleteOrderController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -46,6 +49,8 @@ Route::delete('/auth/address/{id}', DeleteController::class)->middleware("auth:s
 Route::delete('/auth/tracker', DeleteTrackerController::class)->middleware("auth:sanctum");
 Route::get('/auth/admin', GetAdminTrackerController::class)->middleware(['auth:sanctum', "checkRole"]);
 Route::post('/auth/admin', AdminAddTrackerController::class)->middleware(['auth:sanctum', "checkRole"]);
+Route::get('/auth/admin/user', AllOrderListController::class)->middleware(['auth:sanctum', "checkRole"]);
+Route::delete('/auth/admin/user', DeleteOrderController::class)->middleware(['auth:sanctum', "checkRole"]);
 Route::delete('/auth/admin', DeleteAdminTrackerController::class)->middleware(['auth:sanctum', "checkRole"]);
 
 

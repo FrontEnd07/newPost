@@ -6,8 +6,17 @@ import { BsHouseAdd } from "react-icons/bs";
 import { Collapse, Nav } from 'react-bootstrap';
 import { useSelector, useDispatch } from "react-redux";
 import { Route, Routes, NavLink, useLocation } from "react-router-dom";
-import { AddTracker, Address, Dashboard, Order, InfoAddress, AdminAddTracker } from "./index"
-import { PiBracketsAngleThin, PiTableLight, PiKeyboardThin, PiStarLight } from "react-icons/pi";
+import {
+    Order,
+    Address,
+    Dashboard,
+    AddTracker,
+    InfoAddress,
+    OrderUserList,
+    AdminAddTracker,
+} from "./index"
+import { PiKeyboardThin, } from "react-icons/pi";
+import { AiOutlineOrderedList } from "react-icons/ai";
 
 const Main = () => {
     const dispatch = useDispatch()
@@ -49,6 +58,10 @@ const Main = () => {
                 {
                     "name": "Добавить трекер",
                     "link": '/admin-add-tracker'
+                },
+                {
+                    "name": "Заказы клиентов",
+                    "link": '/order-user-list'
                 }
             ]
         },
@@ -129,10 +142,11 @@ const Main = () => {
             <div className='px-lg-4 px-xl-5 container-fluid'>
                 <Routes>
                     <Route path="/" element={<Dashboard />} />
+                    <Route path="/order" element={<Order />} />
                     <Route path="/address" element={<Address />} />
                     <Route path="/add-tracker" element={<AddTracker />} />
-                    <Route path="/order" element={<Order />} />
                     <Route path="/info-address" element={<InfoAddress />} />
+                    <Route path="/order-user-list" element={<OrderUserList />} />
                     <Route path="/admin-add-tracker" element={<AdminAddTracker />} />
                 </Routes>
             </div>

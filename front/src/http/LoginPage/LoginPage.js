@@ -3,6 +3,8 @@ import { $host, $authHost } from "../index"
 import { orderAC } from "../../store/Reducers/Order";
 import { addressAC } from '../../store/Reducers/Main/Address';
 import { trackerAC } from "../../store/Reducers/Main/Tracker";
+import { listAC } from "../../store/Reducers/Main/AdminOrderList";
+import { trackerAdminAC } from "../../store/Reducers/Main/AddTrackerAdmin";
 import { loginAC, disabledAC } from "../../store/Reducers/LoginPage/LoginPage";
 
 export const postSignUpApi = (payload) => async (dispatch, getState) => {
@@ -52,14 +54,18 @@ export const postLogOutApi = () => async (dispatch, getState) => {
     let { address } = getState().address
     let { order } = getState().order
     let { tracker } = getState().tracker
+    let { list } = getState().orderList
+    let { trackerAdmin } = getState().adminAddTracker
     try {
         const { data } = await $authHost.post(`auth/logout`)
         if (data.status) {
             localStorage.removeItem("jwtToken");
             localStorage.removeItem("about");
             if (address) dispatch(addressAC(null))
-            if (order) dispatch(orderAC([]))
-            if (tracker) dispatch(trackerAC(null))
+            if (order.length > 0) dispatch(orderAC([]))
+            if (tracker.length > 0) dispatch(trackerAC([]))
+            if (list.length > 0) dispatch(listAC([]))
+            if (trackerAdmin.length > 0) dispatch(trackerAdminAC([]))
             dispatch(loginAC(false));
         }
     } catch (e) {

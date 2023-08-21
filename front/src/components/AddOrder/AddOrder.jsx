@@ -96,6 +96,7 @@ const AddOrder = () => {
                             name="price"
                             type="text"
                             onChange={e => { e.target.value = price(e.target.value) }}
+                            small="Цена товар и доставки по Китаю"
                             register={register}
                             errors={errors} />
                     </div>

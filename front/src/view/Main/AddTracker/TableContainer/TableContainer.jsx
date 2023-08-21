@@ -7,6 +7,7 @@ import {
 } from '../../../../components';
 import { useDispatch, useSelector } from "react-redux";
 import { http_build_query } from '../../../../utils/NFormatter';
+import { trackerAC } from '../../../../store/Reducers/Main/Tracker';
 import { getTrackerApi, deleteTrackerApi } from '../../../../http/Main/Tracker';
 
 const columns = [
@@ -36,7 +37,7 @@ const columns = [
         Cell: ({ row }) => {
             const { status } = row.original
             if (status.length > 0) {
-                return status.map((el, i) => <div>
+                return status.map((el, i) => <div key={i}>
                     <span className="badge text-success bg-success-light">
                         <span className="indicator"></span>
                         {el.status}
@@ -68,6 +69,13 @@ const TableContainer = () => {
     const dispatch = useDispatch();
     const { meta, loading, tracker } = useSelector(state => state.tracker);
     const [tableFilter, setTableFilter] = useState({});
+
+    useEffect(() => {
+        if (tracker.length === 0) {
+            dispatch(getTrackerApi())
+        }
+        return () => dispatch(trackerAC([]))
+    }, [])
 
     useEffect(() => {
         if (Object.keys(tableFilter).length > 0) {
