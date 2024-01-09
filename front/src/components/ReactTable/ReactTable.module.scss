@@ -1,0 +1,14 @@
+.pagination {
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width:576px) {
+    .pagination {
+        display: grid;
+
+        >div {
+            margin: 10px 0px;
+        }
+    }
+}

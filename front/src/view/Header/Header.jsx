@@ -65,7 +65,7 @@ const Header = () => {
                 </svg>
             </a>
             <a href="/" className="fw-bold text-uppercase text-base navbar-brand">
-                <span className="d-none d-brand-partial">Новая почта</span>
+                <span className="d-none d-brand-partial">Почтаи нав</span>
                 <span className="d-none d-sm-inline"> Dashboard</span>
             </a>
             <div className="ms-auto d-flex align-items-center mb-0">

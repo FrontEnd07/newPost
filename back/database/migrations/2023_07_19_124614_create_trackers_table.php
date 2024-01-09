@@ -13,14 +13,16 @@ class CreateTrackersTable extends Migration
      */
     public function up()
     {
-        Schema::create('trackers', function (Blueprint $table) {
-            $table->id();
-            $table->string('tracker');
-            $table->string('name');
-            $table->integer('quantity');
-            $table->integer('streetId');
-            $table->timestamps();
-        });
+        if(!Schema::hasTable('trackers')){
+            Schema::create('trackers', function (Blueprint $table) {
+                $table->id();
+                $table->string('tracker');
+                $table->string('name');
+                $table->integer('quantity');
+                $table->integer('streetId');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

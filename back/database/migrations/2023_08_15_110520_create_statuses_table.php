@@ -13,13 +13,15 @@ class CreateStatusesTable extends Migration
      */
     public function up()
     {
-        Schema::create('statuses', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('tracker_id');
-            $table->foreign('tracker_id')->references('id')->on('admin_trackers');
-            $table->string('status');
-            $table->timestamps();
-        });
+        if(!Schema::hasTable('statuses')){
+            Schema::create('statuses', function (Blueprint $table) {
+                $table->id();
+                $table->unsignedBigInteger('tracker_id');
+                $table->foreign('tracker_id')->references('id')->on('admin_trackers');
+                $table->string('status');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

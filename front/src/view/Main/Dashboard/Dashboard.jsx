@@ -60,6 +60,14 @@ const Dashboard = () => {
     ]
     return <Containers header={"Главное"}>
         <section className="mb-3 mb-lg-5">
+            <div className='mb-5 card'>
+                <div className="card-header">
+                    <h4 className="card-heading">Привязка телеграмм бота</h4>
+                </div>
+                <div className='card-body'>
+                    <p>Ваш текуший токен: <code>{localStorage.getItem('jwtToken')}</code></p>
+                </div>
+            </div>
             <div className='mb-3 row'>{data.map((el, i) => <div key={i} className='mb-4 col-lg-3 col-sm-6'>
                 <ShortInfoCard body={el.body} bodyFooter={el.bodyFooter} />
             </div>)}

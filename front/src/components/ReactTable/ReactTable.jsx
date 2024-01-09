@@ -1,13 +1,10 @@
 import React, { useState, useEffect, forwardRef } from 'react';
-import { Button } from "../"
-import { useDebounce } from 'usehooks-ts'
-import { useDispatch } from "react-redux";
+import { useTable, useSortBy } from "react-table";
 import { Pagination } from "../../components";
-import {
-    useTable,
-    useSortBy,
-} from "react-table";
-
+import styles from "./ReactTable.module.scss"
+import { useDispatch } from "react-redux";
+import { useDebounce } from 'usehooks-ts'
+import { Button } from "../"
 const ReactTable = ({ columns,
     data,
     meta,
@@ -126,9 +123,9 @@ const ReactTable = ({ columns,
                 </tbody>
             </table>
         </div>
-        <div className='dataTable-bottom align-items-center d-flex'>
+        <div className={`dataTable-bottom ${styles.pagination}`}>
             {meta ? <>
-                <div className="flex-shrink-0 mb-2 mb-md-0 me-auto">Страницы {meta?.currentPage} из {meta?.lastPage}</div>
+                <div className="flex-shrink-0 mb-md-0 me-auto">Страницы {meta?.currentPage} из {meta?.lastPage}</div>
                 <Pagination
                     total={meta?.total}
                     perPage={meta?.perPage}

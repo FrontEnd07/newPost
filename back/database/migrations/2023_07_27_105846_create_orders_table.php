@@ -13,16 +13,18 @@ class CreateOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
-            $table->id();
-            $table->string('link');
-            $table->string('price');
-            $table->integer('quantity');
-            $table->string("image");
-            $table->integer("userId");
-            $table->string("parametrs")->nullable();
-            $table->timestamps();
-        });
+        if(!Schema::hasTable('orders')){
+            Schema::create('orders', function (Blueprint $table) {
+                $table->id();
+                $table->string('link');
+                $table->string('price');
+                $table->integer('quantity');
+                $table->string("image");
+                $table->integer("userId");
+                $table->string("parametrs")->nullable();
+                $table->timestamps();
+            });
+        }
     }
 
     /**
