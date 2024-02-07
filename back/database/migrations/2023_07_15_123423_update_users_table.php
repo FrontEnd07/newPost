@@ -13,9 +13,11 @@ class UpdateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->timestamp('phone_verified_at')->after('phone')->nullable();
-        });
+        if (!Schema::hasTable('users')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->timestamp('phone_verified_at')->after('phone')->nullable();
+            });
+        }
     }
 
     /**

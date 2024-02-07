@@ -5,6 +5,7 @@ export const LField = forwardRef((props, ref) => {
     const [isShowHide, setIsShowHide] = useState(true)
 
     const { errors, icon, label, register, type, small, appClassName, ...rest } = props
+    
     return <div className="form-floating mb-3">
         <input
             type={!(isShowHide && type === 'password') ? 'text' : type}

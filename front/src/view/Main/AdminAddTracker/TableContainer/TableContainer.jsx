@@ -62,8 +62,7 @@ const columns = [
             const { status } = row.original
             if (status.length > 0) {
                 return status.map((el, i) => <div key={i}>
-                    <span className="badge text-success bg-success-light">
-                        <span className="indicator"></span>
+                    <span className={`badge text-success bg-success-light ${style.text_width}`}>
                         {el.status}
                     </span>
                 </div>)

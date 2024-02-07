@@ -1,4 +1,4 @@
-import { LField, Check, LFieldMask, Radio } from "./Form/index";
+import { LField, Check, LFieldMask, Radio, TextArea } from "./Form/index";
 import ShortInfoCard from "./ShortInfoCard";
 import CardAddress from "./CardAddress";
 import PageHeader from "./PageHeader";
@@ -20,6 +20,7 @@ export {
     Loading,
     AddOrder,
     DropDown,
+    TextArea,
     Pagination,
     LFieldMask,
     PageHeader,

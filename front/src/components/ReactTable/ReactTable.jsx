@@ -1,11 +1,10 @@
 import React, { useState, useEffect, forwardRef } from 'react';
-import styles from "./ReactTable.module.scss";
-import { useDebounce } from 'usehooks-ts'
-import { useDispatch } from "react-redux";
-import { Pagination } from "../../components";
 import { useTable, useSortBy } from "react-table";
-import { Button } from "../";
-
+import { Pagination } from "../../components";
+import styles from "./ReactTable.module.scss"
+import { useDispatch } from "react-redux";
+import { useDebounce } from 'usehooks-ts'
+import { Button } from "../"
 const ReactTable = ({ columns,
     data,
     meta,
@@ -109,7 +108,6 @@ const ReactTable = ({ columns,
                             {row.cells.map((cell) => {
                                 return <td
                                     style={{ maxWidth: "200px" }}
-                                    className="text-start"
                                     {...cell.getCellProps()}>
                                     {(cell.column.id === 'id' && deleteHandler) ? <input
                                         style={{ cursor: "pointer" }}
@@ -124,9 +122,9 @@ const ReactTable = ({ columns,
                 </tbody>
             </table>
         </div>
-        <div className={`dataTable-bottom align-items-center d-flex ${styles.grid}`}>
+        <div className={`dataTable-bottom ${styles.pagination}`}>
             {meta ? <>
-                <div className="flex-shrink-0 mb-2 mb-md-0 me-auto">Страницы {meta?.currentPage} из {meta?.lastPage}</div>
+                <div className="flex-shrink-0 mb-md-0 me-auto">Страницы {meta?.currentPage} из {meta?.lastPage}</div>
                 <Pagination
                     total={meta?.total}
                     perPage={meta?.perPage}

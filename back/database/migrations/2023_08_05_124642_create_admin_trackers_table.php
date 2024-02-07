@@ -13,13 +13,15 @@ class CreateAdminTrackersTable extends Migration
      */
     public function up()
     {
-        Schema::create('admin_trackers', function (Blueprint $table) {
-            $table->id();
-            $table->string("tracker");
-            $table->string("user")->nullable();
-            $table->string("image")->nullable();
-            $table->timestamps();
-        });
+        if(!Schema::hasTable('admin_trackers')){
+            Schema::create('admin_trackers', function (Blueprint $table) {
+                $table->id();
+                $table->string("tracker");
+                $table->string("user")->nullable();
+                $table->string("image")->nullable();
+                $table->timestamps();
+            });
+        }
     }
 
     /**

@@ -25,6 +25,11 @@ class Tracker extends Model
         return $this->belongsTo(Address::class, 'streetId', 'id');
     }
 
+    public function userAttach()
+    {
+        return $this->hasOne(Attach::class, 'user_id', 'userId');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'userId');

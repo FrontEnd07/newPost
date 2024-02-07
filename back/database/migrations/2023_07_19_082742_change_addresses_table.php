@@ -13,9 +13,11 @@ class ChangeAddressesTable extends Migration
      */
     public function up()
     {
-        Schema::table('addresses', function (Blueprint $table) {
-            $table->string("default")->after("street");
-        });
+        if(!Schema::hasTable('addresses')){
+            Schema::table('addresses', function (Blueprint $table) {
+                $table->string("default")->after("street");
+            });
+        }
     }
 
     /**

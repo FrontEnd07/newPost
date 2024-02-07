@@ -7,14 +7,16 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, LField, LFieldMask } from "../../../../components"
+import { Button, LField, LFieldMask, TextArea, Check } from "../../../../components"
 import { getUserApi, postAdminAddTrackerApi } from "../../../../http/Main/AdminAddTracker";
 
 const schema = yup.object().shape({
     tracker: yup.string().required("Обязательно"),
     status: yup.string().required("Обязательно"),
+    message: yup.string(),
     phone: yup.string().transform((value) => value.replace(/\+992|\s|\(|\)|-|_/g, '')),
     image: yup.mixed(),
+    notify: yup.boolean()
 });
 
 const FormTracker = () => {
@@ -62,6 +64,8 @@ const FormTracker = () => {
         }
         formData.append('phone', data.phone);
         formData.append('status', data.status);
+        formData.append('notify', data.notify);
+        formData.append('message', data.message);
         dispatch(postAdminAddTrackerApi(formData))
     }
 
@@ -71,13 +75,13 @@ const FormTracker = () => {
         </div>
         <div className='card-body'>
             <form action="/">
-                <LField
+                <TextArea
                     id="tracker"
-                    placeholder="Трекер"
                     name="tracker"
-                    type="text"
-                    register={register}
+                    rows="6"
                     small="Вы можете вводит до 255 символов, несколько трек-номеров, разделяя их пробелами или другими знаками табуляции."
+                    placeholder="Трекер"
+                    register={register}
                     errors={errors} />
                 <LField
                     id="status"
@@ -115,6 +119,20 @@ const FormTracker = () => {
                         onChange={event => { setValue("image", event.currentTarget.files[0]) }}
                     />
                 </Form.Group>
+                <Check
+                    id="notify"
+                    placeholder="уведомления получателя"
+                    name="notify"
+                    type="checkbox"
+                    register={register}
+                    errors={errors} />
+                <LField
+                    id="message"
+                    placeholder="Доп.иформация"
+                    name="message"
+                    type="text"
+                    register={register}
+                    errors={errors} />
                 <Button text="Добавить" disabled={disabled} hendle={handleSubmit(handlerSubmit)} />
             </form>
         </div>

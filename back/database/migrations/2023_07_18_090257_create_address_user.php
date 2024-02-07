@@ -13,14 +13,16 @@ class CreateAddressUser extends Migration
      */
     public function up()
     {
-        Schema::create('address_user', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('city');
-            $table->string('phone');
-            $table->string('street')->unique();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('address_user')) {
+            Schema::create('address_user', function (Blueprint $table) {
+                $table->id();
+                $table->string('name');
+                $table->string('city');
+                $table->string('phone');
+                $table->string('street')->unique();
+                $table->timestamps();
+            });
+        }
     }
 
     /**

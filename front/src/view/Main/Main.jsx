@@ -51,7 +51,7 @@ const Main = () => {
             ]
         },
         {
-            "name": "Admin",
+            "name": "ADMIN",
             "show": about.role === "0" ? true : false,
             "icon": <PiKeyboardThin className="me-3" size={24} />,
             "path": [
