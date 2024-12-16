@@ -19,7 +19,7 @@ use App\Http\Controllers\Api\Auth\Admin\GetAdminTrackerController;
 use App\Http\Controllers\Api\Auth\Admin\DeleteAdminTrackerController;
 use App\Http\Controllers\Api\Auth\Admin\User\AllOrderListController;
 use App\Http\Controllers\Api\Auth\Admin\User\DeleteOrderController;
-
+use App\Http\Controllers\TelegramController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -52,7 +52,7 @@ Route::post('/auth/admin', AdminAddTrackerController::class)->middleware(['auth:
 Route::get('/auth/admin/user', AllOrderListController::class)->middleware(['auth:sanctum', "checkRole"]);
 Route::delete('/auth/admin/user', DeleteOrderController::class)->middleware(['auth:sanctum', "checkRole"]);
 Route::delete('/auth/admin', DeleteAdminTrackerController::class)->middleware(['auth:sanctum', "checkRole"]);
-
+Route::post('/send-message', [TelegramController::class, 'sendMessage']);
 
 Route::get('/check-connection', function () {
     try {

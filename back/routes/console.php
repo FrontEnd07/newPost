@@ -24,6 +24,7 @@ Artisan::command("telegram", function () {
     $bot = \DefStudio\Telegraph\Models\TelegraphBot::find(1);
     dd($bot->registerCommands([
         'search' => '🔎 Проверка статус посылок',
-        'attach' => '👤 Привязка телеграмм бота к сайту'
+        'signin' => '👤 Привязка телеграмм бота к сайту',
+        'menu' => '📚 Меню'
     ])->send());
 });

@@ -1,0 +1,46 @@
+[2024-12-15 22:12:15] local.DEBUG: Telegraph webhook message {"text":"/menu"} 
+[2024-12-15 22:12:28] local.DEBUG: Telegraph webhook message {"text":"/menu"} 
+[2024-12-15 22:13:29] local.DEBUG: Telegraph webhook message {"text":"/menu"} 
+[2024-12-15 22:13:29] local.ERROR: Typed property DefStudio\Telegraph\Keyboard\Button::$switchInlineQuery must not be accessed before initialization {"exception":"[object] (Error(code: 0): Typed property DefStudio\\Telegraph\\Keyboard\\Button::$switchInlineQuery must not be accessed before initialization at D:\\fullStack\\newPost\\back\\vendor\\defstudio\\telegraph\\src\\Keyboard\\Button.php:88)
+[stacktrace]
+#0 D:\\fullStack\\newPost\\back\\app\\Telegraph\\Trait\\MenuTrait.php(43): DefStudio\\Telegraph\\Keyboard\\Button->currentChat()
+#1 D:\\fullStack\\newPost\\back\\app\\Telegraph\\Trait\\MenuTrait.php(35): App\\Telegraph\\Handler->getMenuKeyboardGroup()
+#2 D:\\fullStack\\newPost\\back\\vendor\\defstudio\\telegraph\\src\\Handlers\\WebhookHandler.php(84): App\\Telegraph\\Handler->Menu('/menu')
+#3 D:\\fullStack\\newPost\\back\\vendor\\defstudio\\telegraph\\src\\Handlers\\WebhookHandler.php(111): DefStudio\\Telegraph\\Handlers\\WebhookHandler->handleCommand(Object(Illuminate\\Support\\Stringable))
+#4 D:\\fullStack\\newPost\\back\\vendor\\defstudio\\telegraph\\src\\Handlers\\WebhookHandler.php(232): DefStudio\\Telegraph\\Handlers\\WebhookHandler->handleMessage()
+#5 D:\\fullStack\\newPost\\back\\vendor\\defstudio\\telegraph\\src\\Controllers\\WebhookController.php(28): DefStudio\\Telegraph\\Handlers\\WebhookHandler->handle(Object(Illuminate\\Http\\Request), Object(DefStudio\\Telegraph\\Models\\TelegraphBot))
+#6 D:\\fullStack\\newPost\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(46): DefStudio\\Telegraph\\Controllers\\WebhookController->handle(Object(Illuminate\\Http\\Request), '6304484654:AAFC...')
+#7 D:\\fullStack\\newPost\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(259): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(DefStudio\\Telegraph\\Controllers\\WebhookController), 'handle')
+#8 D:\\fullStack\\newPost\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(205): Illuminate\\Routing\\Route->runController()
+#9 D:\\fullStack\\newPost\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(798): Illuminate\\Routing\\Route->run()
+#10 D:\\fullStack\\newPost\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#11 D:\\fullStack\\newPost\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#12 D:\\fullStack\\newPost\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(797): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#13 D:\\fullStack\\newPost\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(776): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#14 D:\\fullStack\\newPost\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(740): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#15 D:\\fullStack\\newPost\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(729): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#16 D:\\fullStack\\newPost\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(190): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#17 D:\\fullStack\\newPost\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#18 D:\\fullStack\\newPost\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#19 D:\\fullStack\\newPost\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#20 D:\\fullStack\\newPost\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#21 D:\\fullStack\\newPost\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#22 D:\\fullStack\\newPost\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#23 D:\\fullStack\\newPost\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#24 D:\\fullStack\\newPost\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#25 D:\\fullStack\\newPost\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#26 D:\\fullStack\\newPost\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#27 D:\\fullStack\\newPost\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#28 D:\\fullStack\\newPost\\back\\vendor\\fruitcake\\laravel-cors\\src\\HandleCors.php(38): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#29 D:\\fullStack\\newPost\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Fruitcake\\Cors\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#30 D:\\fullStack\\newPost\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#31 D:\\fullStack\\newPost\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#32 D:\\fullStack\\newPost\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#33 D:\\fullStack\\newPost\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(165): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#34 D:\\fullStack\\newPost\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#35 D:\\fullStack\\newPost\\back\\public\\index.php(51): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#36 {main}
+"} 
+[2024-12-15 22:14:10] local.DEBUG: Telegraph webhook message {"text":"/menu"} 
+[2024-12-15 22:14:21] local.DEBUG: Telegraph webhook message {"text":"@NewPostTjBot /menu"} 
+[2024-12-15 22:14:28] local.DEBUG: Telegraph webhook message {"text":"/menu@NewPostTjBot"} 

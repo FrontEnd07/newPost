@@ -9,7 +9,7 @@ export const TextArea = forwardRef((props, ref) => {
     const handleClear = () => {
         setTextValue("");
     };
-
+    
     return <div className={`mb-3 ${style.main}`}>
         <textarea
             className={`mb-2 form-control ${errors[rest.name] ? "is-invalid" : ""}`}
@@ -20,7 +20,7 @@ export const TextArea = forwardRef((props, ref) => {
         />
         {textValue && (
             <button type="button" className={`btn btn-outline-primary ${style.btn}`} onClick={handleClear}>
-                Clear <MdClear size={20} />
+                Очистить {textValue.trim().split(/[\s,]+/).length}шт. <MdClear size={20} />
             </button>
         )}
         {small && <small className="text-muted form-text">{small}</small>}

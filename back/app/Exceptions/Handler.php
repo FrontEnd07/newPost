@@ -38,4 +38,14 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function report(Throwable $exception)
+    {
+        if ($this->shouldReport($exception)) {
+            // Проверяем, является ли это предупреждением и игнорируем его
+            if (strpos($exception->getMessage(), 'WARNING') === false) {
+                parent::report($exception);
+            }
+        }
+    }
 }
